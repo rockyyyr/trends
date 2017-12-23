@@ -26,5 +26,5 @@ async function run (){
     const trends = await market.trends()
     await record.trends(trends)
 
-  }, 1000 * 60)
+  }, 1000 * 20)
 }

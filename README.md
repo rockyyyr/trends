@@ -1,0 +1,3 @@
+## Trends
+
+```` Monitor market trends ````

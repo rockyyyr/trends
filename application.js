@@ -1,5 +1,4 @@
 const { market, record } = require('./service')
-const request = require('./util/request')
 
 start()
 
@@ -22,10 +21,10 @@ function prepare(ready){
   })
 }
 
-async function run (minutes){
+async function run (){
   setInterval(async () => {
     const trends = await market.trends()
     await record.trends(trends)
 
-  }, 2000)
+  }, 1000 * 60)
 }

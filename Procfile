@@ -1,2 +1,2 @@
 web: node server
-worker: node application
+worker: node index

@@ -9,14 +9,14 @@ function ready() {
 
 function init(data) {
   const columns = data
-    .filter(bitcoin)
+    .filter(coins)
     .map(toSymbol)
   return db.createTableIfNotExists(table, columns)
 }
 
 async function trends(raw) {
   const data = raw
-    .filter(bitcoin)
+    .filter(coins)
     .reduce(flatten, {})
 
   data.time = now()
@@ -29,8 +29,8 @@ function retrieve(range) {
     : db.select(table)
 }
 
-function bitcoin(item){
-  return item.symbol.endsWith('BTC')
+function coins(item){
+  return item.symbol.endsWith('BTC') && item.symbol !== 'BRDBTC'
 }
 
 function flatten(obj, item){

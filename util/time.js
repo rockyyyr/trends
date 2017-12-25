@@ -23,8 +23,21 @@ function convertTimestamps (data){
   })
 }
 
+function range(hours){
+  return {
+    start: now(hours),
+    end: now()
+  }
+}
+
+function property(item){
+  return item !== 'time'
+}
+
 module.exports = {
   now,
+  range,
   fromUnix,
-  convertTimestamps
+  convertTimestamps,
+  property
 }

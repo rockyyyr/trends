@@ -2,21 +2,17 @@ const {record} = require('../../service')
 const {time, calculate} = require('../../util')
 
 async function top(hours, size) {
-  const range = {
-    start: time.now(hours),
-    end: time.now()
-  }
-  const data = await record.retrieve(range)
+  const data = await record.retrieve(time.range(hours))
   const start = data[0]
   const end = data[data.length - 1]
 
   const properties = Object
     .getOwnPropertyNames(start)
-    .filter(timeProperty)
+    .filter(time.property)
 
   return properties
     .map(item => change(item, start, end))
-    .sort((a, b) => b.change - a.change)
+    .sort(changes)
     .slice(0, size)
 }
 
@@ -27,9 +23,10 @@ function change(item, start, end) {
   }
 }
 
-function timeProperty(item){
-  return item !== 'time'
+function changes(a, b) {
+  return b.change - a.change
 }
+
 
 module.exports = {
   top

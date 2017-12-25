@@ -26,7 +26,7 @@ async function trends(raw) {
 
 function retrieve(range) {
   return range ? db.selectInRange(table, range)
-    : db.select(table)
+               : db.select(table)
 }
 
 function coins(item){

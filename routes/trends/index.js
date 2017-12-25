@@ -4,7 +4,11 @@ const request = require('../../util/request')
 const db = require('../../database/db')
 
 router.get('/top', async (req, res) => {
-  res.json(await trends.top())
+  const hours = req.query.hours
+  const size  = req.query.size
+  const result = await trends.top(hours, size)
+
+  res.json(result)
 })
 
 router.get('/binance', async (req, res) => {

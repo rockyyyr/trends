@@ -1,7 +1,8 @@
 const moment = require('moment')
 
-function now() {
-  return moment().format()
+function now (hours){
+  return hours ? moment().subtract(hours, 'hours').format()
+               : moment().format()
 }
 
 function fromUnix(unix){

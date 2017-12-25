@@ -1,6 +1,6 @@
 const { market, record } = require('./service')
 
-start()
+// start()
 
 async function start (){
   const ready = await record.ready()

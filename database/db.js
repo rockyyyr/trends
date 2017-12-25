@@ -56,7 +56,7 @@ function selectInRange (table, { start, end },  columns){
     knex
       .select(columns || "*")
       .from(table)
-      .whereBetween('time', start, end)
+      .whereBetween('time', [start, end])
       .then(result => resolve(result))
       .catch(err => console.error(err))
   })

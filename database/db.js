@@ -15,7 +15,7 @@ function createTableIfNotExists (table, columns) {
       columns.forEach(name => column.decimal(name, 16, 8))
       column.string('time')
     }).then(resolve)
-      .catch(err => console.error(err))
+      .catch(error)
   })
 }
 
@@ -26,7 +26,7 @@ function insert (table, data){
       .insert(attachTimestamp(data))
       .into(table)
       .then(resolve)
-      .catch(err => console.error(err))
+      .catch(error)
   })
 }
 
@@ -35,7 +35,7 @@ function batchInsert (table, data){
   return new Promise(resolve => {
     knex.batchInsert(table, data, 2000)
       .then(resolve)
-      .catch(err => console.log(err.message))
+      .catch(error)
   })
 }
 
@@ -45,8 +45,8 @@ function select (table, columns){
     knex
       .select(columns || "*")
       .from(table)
-      .then(result => resolve(result))
-      .catch(err => console.error(err))
+      .then(resolve)
+      .catch(error)
   })
 }
 
@@ -57,8 +57,31 @@ function selectInRange (table, { start, end },  columns){
       .select(columns || "*")
       .from(table)
       .whereBetween('time', [start, end])
-      .then(result => resolve(result))
-      .catch(err => console.error(err))
+      .then(resolve)
+      .catch(error)
+  })
+}
+
+function selectRecent(table, columns){
+  console.log(`select last from ${table} ${columns || '*'}`)
+  return new Promise(resolve => {
+    knex
+      .select(columns || '*')
+      .from(table)
+      .orderBy('time', 'desc')
+      .limit(1)
+      .then(resolve)
+      .catch(error)
+  })
+}
+
+function update(table, data){
+  console.log(`udpate table ${table}`)
+  return new Promise(resolve => {
+    knex
+      .update(data)
+      .then(resolve)
+      .catch(error)
   })
 }
 
@@ -67,11 +90,17 @@ function attachTimestamp (data){
   return data
 }
 
+function error(err){
+  console.log(err.message)
+}
+
 module.exports = {
   tableExists,
   createTableIfNotExists,
   insert,
   batchInsert,
   select,
-  selectInRange
+  selectInRange,
+  selectRecent,
+  update
 }

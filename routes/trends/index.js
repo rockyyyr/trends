@@ -11,6 +11,13 @@ router.get('/top', async (req, res) => {
   res.json(result)
 })
 
+router.get('/price', async (req, res) => {
+  const currency = req.query.currency
+  const result = await trends.price(currency)
+
+  res.json(result)
+})
+
 router.get('/binance', async (req, res) => {
   const response = await request.get('https://api.binance.com/api/v1/ticker/allPrices')
   const sorted = response.sort((a, b) => b.price - a.price)

@@ -16,6 +16,10 @@ async function top(hours, size) {
     .slice(0, size)
 }
 
+function price(currency){
+  return record.getPrice(currency)
+}
+
 function change(item, start, end) {
   return {
     symbol: item,
@@ -27,7 +31,7 @@ function changes(a, b) {
   return b.change - a.change
 }
 
-
 module.exports = {
-  top
+  top,
+  price
 }

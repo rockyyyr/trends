@@ -29,6 +29,10 @@ function retrieve(range) {
                : db.select(table)
 }
 
+function getPrice(currency){
+  return db.selectRecent(table, currency)
+}
+
 function coins(item){
   return item.symbol.endsWith('BTC') && item.symbol !== 'BRDBTC' && item.symbol !== 'EDOBTC' && item.symbol !== 'WINGSBTC'
 }
@@ -46,5 +50,6 @@ module.exports = {
   ready,
   init,
   trends,
-  retrieve
+  retrieve,
+  getPrice
 }

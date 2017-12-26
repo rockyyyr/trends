@@ -30,7 +30,7 @@ function retrieve(range) {
 }
 
 function coins(item){
-  return item.symbol.endsWith('BTC') && item.symbol !== 'BRDBTC' && item.symbol !== 'EDOBTC'
+  return item.symbol.endsWith('BTC') && item.symbol !== 'BRDBTC' && item.symbol !== 'EDOBTC' && item.symbol !== 'WINGSBTC'
 }
 
 function flatten(obj, item){
